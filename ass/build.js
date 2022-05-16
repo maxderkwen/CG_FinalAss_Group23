@@ -1,11 +1,9 @@
 
-
-
 const loader = new THREE.PLYLoader();
 
-function loadPLYModel(x,y,z) {
+function loadPLYModel(x,y,z,name,scale) {
     var tempModel =new THREE.Mesh();  
-    loader.load('/models/chopper.ply', 
+    loader.load(name, 
     function(geometry) {
         geometry.computeVertexNormals();
         geometry.computeBoundingBox();
@@ -19,6 +17,7 @@ function loadPLYModel(x,y,z) {
         tempModel.updateMatrix();
         tempModel.castShadow=true;
         tempModel.receiveShadow=true;
+        tempModel.scale.set(scale,scale,scale);
     });
     return tempModel;
 }
@@ -54,7 +53,6 @@ function createDoor(width,height,r,g,b){
     var box3 = createBoxGeometry(1,4,10,2,0,0);
 
     var merged = THREE.BufferGeometryUtils.mergeBufferGeometries([box1, box2,box3]);
-    console.log(merged);
 
     var material = new THREE.MeshPhongMaterial();
     material.color = new THREE.Color(r, g, b);
@@ -74,39 +72,26 @@ function createDoor(width,height,r,g,b){
 var doors = new Array();
 var floors = new Array();
 const group = new THREE.Group();
-var doorsNum = 2;
-var startPosZ= 0;
+var tempLoadModel1=loadPLYModel(-40,0,0,'/models/chopper.ply',1);
+var tempLoadModel2=loadPLYModel(-60,0,0,'/models/airplane.ply',0.01);
+var tempLoadModel3=loadPLYModel(-80,0,0,'/models/ant.ply',1);
+var doorsNum = 1;
+var startPosZ= -120;
 var groundMat;
 var wireFrameOn=false;
 
 function addShapes() {
-
-    for(let i=0;i<doorsNum;i++){
-        var floorTemp = createBox(30,0.1,80,0.8,0.8,0.8);
-        floorTemp.position.set(0,-10,startPosZ-i*80);
-        floorTemp.updateMatrix();
-        floors.push(floorTemp);
-        group.add(floorTemp);
-        
-        var tempLoadModel=loadPLYModel(0,-20,startPosZ-i*80);
-        floors.push(tempLoadModel);
-        group.add(tempLoadModel);
-
-        var doorTemp = createDoor(5,5,Math.random(),Math.random(),Math.random());
-        doorTemp.position.set(0,0,startPosZ-i*80);
-        doorTemp.updateMatrix();
-        doors.push(doorTemp);
-        group.add(doorTemp);
-        
-    }
-    
-
     var groundTemp = createBox(3000,0.1,3000,0.2,0.5,0.2);
     groundTemp.position.set(0,-10.2,0);
     groundTemp.receiveShadow=true;
     groundMat=groundTemp.material;
 
     addLight();
+
+    scene.add(tempLoadModel1);
+    scene.add(tempLoadModel2);
+    scene.add(tempLoadModel3);
+
     scene.add(ambientlight);
     scene.add(sceneLight);
     scene.add(camera);
@@ -114,6 +99,34 @@ function addShapes() {
     scene.add(groundTemp);
     
 }
+
+
+function groupAddShape(model,scale)
+{
+    var floorTemp = createBox(30,0.1,80,0.8,0.8,0.8);
+    floorTemp.position.set(0,-10,startPosZ);
+    floorTemp.updateMatrix();
+    floors.push(floorTemp);
+    group.add(floorTemp);
+
+    var modelTemp=new THREE.Mesh(model.geometry,model.material);
+    modelTemp.position.set(0,10+25,startPosZ+25);
+    modelTemp.rotateX(-90);
+    modelTemp.castShadow=true;
+    modelTemp.receiveShadow=true;
+    modelTemp.scale.set(scale,scale,scale);
+    modelTemp.updateMatrix();
+    doors.push(modelTemp);
+    group.add(modelTemp);
+
+    var doorTemp = createDoor(5,5,Math.random(),Math.random(),Math.random());
+    doorTemp.position.set(0,0,startPosZ);
+    doorTemp.updateMatrix();
+    doors.push(doorTemp);
+    group.add(doorTemp);
+}
+
+
 
 var cameralight;
 var ambientlight;
