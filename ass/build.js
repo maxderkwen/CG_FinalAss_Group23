@@ -76,7 +76,7 @@ var tempLoadModel1=loadPLYModel(-40,0,0,'/models/chopper.ply',1);
 var tempLoadModel2=loadPLYModel(-60,0,0,'/models/airplane.ply',0.01);
 var tempLoadModel3=loadPLYModel(-80,0,0,'/models/ant.ply',1);
 var doorsNum = 1;
-var startPosZ= -120;
+var startPosZ= -300;
 var groundMat;
 var wireFrameOn=false;
 

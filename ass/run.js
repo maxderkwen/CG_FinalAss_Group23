@@ -1,12 +1,10 @@
 setScene();
-
-
 addShapes();
-
 animate();
-animateAllDoor();
 animateAudioBarAverageFrequency();
 animateAudioBarAllFrequency();
+animateAllDoor();
+
 buildGui();
 
 

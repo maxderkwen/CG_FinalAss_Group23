@@ -1,5 +1,5 @@
 
-const fastSpeed=3.0;
+const fastSpeed=20.0;
 
  function animateDoor(object){    
         //object is THREE.Mesh
@@ -45,29 +45,37 @@ function animateAudioBarAllFrequency(){
     }
 }
 
-var currFrequency=0;
-var lastFrequency=0;
+var currFrequency=-1.0;
+var lastFrequency=-1.0;
 var frequencyDifference=0;
+var clock = new THREE.Clock();
+var renderTime = 0.2;
+var timer = 0;
 function animateAudioBarAverageFrequency(){
     requestAnimationFrame(animateAudioBarAverageFrequency);
-    
-    if (analyser) {
+    var deltaTime = clock.getDelta();
+    timer=timer+deltaTime;
+    if (timer> renderTime &&analyser) {
+        timer=0;
         lastFrequency=currFrequency;
-        // 获得频率数据N个
         currFrequency = analyser.getAverageFrequency();
+
         mainAudioBar.scale.x = 300 * currFrequency / 256;
         frequencyDifference=currFrequency-lastFrequency;
-        if(frequencyDifference>5 && frequencyDifference<6){
-            //console.log(frequencyDifference);
+
+        if(frequencyDifference>1 && frequencyDifference<8){
             groupAddShape(tempLoadModel1,1);
-        }
-        if(frequencyDifference>6 && frequencyDifference<9)
-        {
-            groupAddShape(tempLoadModel2,0.01);
+            ambientSound.setVolume(volumeMax*0.5);
         }
         if(frequencyDifference>9)
         {
+            groupAddShape(tempLoadModel2,0.01);
+            ambientSound.setVolume(volumeMax*0.25);
+        }
+        if(frequencyDifference<-9)
+        {
             groupAddShape(tempLoadModel3,1);
+            ambientSound.setVolume(volumeMax);
         }
 
     }

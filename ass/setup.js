@@ -11,12 +11,12 @@ var controls;
 
 var audioLoader=new THREE.AudioLoader();
 audioLoader.load("sounds/EndlessCarnival.mp3",function(buffer){
-    ambientSound.setBuffer(buffer);// 给一个加载器对象设置音频对象的缓存
-    ambientSound.setLoop(true);//设置音频循环
-    ambientSound.play();// 播放音频
-},function(xhr){// onProgress回调
+    ambientSound.setBuffer(buffer); 
+    ambientSound.setLoop(true);
+    ambientSound.play();
+},function(xhr){// onProgress
     console.log("audio "+(xhr.loaded/xhr.total)*100+" % loaded");
-},function(error){// onError回调
+},function(error){// onError
     console.error("an error happened !");
 });	
 
