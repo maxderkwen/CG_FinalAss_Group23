@@ -31,7 +31,6 @@ function setScene() {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild(renderer.domElement);
     controls = new THREE.OrbitControls(camera, renderer.domElement);
-    audioLoader.play;
     CreateAudioBar();
     
 }
