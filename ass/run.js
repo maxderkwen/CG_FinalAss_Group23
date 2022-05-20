@@ -4,7 +4,6 @@ animate();
 animateAudioBarAverageFrequency();
 animateAudioBarAllFrequency();
 animateAllDoor();
-
 buildGui();
 
 

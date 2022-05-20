@@ -1,13 +1,20 @@
 
 var gui;
-var volumeMax=2;
+var currentVolume=1.2;
+var volumeChangeOffSet=0.5;
 function buildGui() {
     gui = new dat.GUI();
+    var musicPlaybutton = { add:function(){ ambientSound.play(); }};
+    var musicStopbutton = { add:function(){ ambientSound.stop(); }};
+    //var musicPlaybutton = { add:function(){ audioLoader.play(); }};
+    //var musicStopbutton = { add:function(){  }};
+    
     var params = {
         color: groundMat.color.getHex(),
         switch: wireFrameOn,
         volume:ambientSound.getVolume(),
-        
+        volumeOffset:volumeChangeOffSet,
+        moveSpeed:fastSpeed
     }
     gui.addColor(params, 'color').name("Ground Color").onChange(function(val) {
         groundMat.color.setHex(val);
@@ -18,10 +25,20 @@ function buildGui() {
         UpdateSceneModelWireFrame(val);
     });;
 
-    gui.add(params, "volume",0,volumeMax).name("Music Volume").onChange(function(val) {
-        ambientSound.setVolume(val);
+    gui.add(params, "volume",0,2).name("Music Volume").onChange(function(val) {
+        currentVolume=val;
+        ambientSound.setVolume(currentVolume);
     });;
+    gui.add(params, "volumeOffset",0,2).name("VolumeOffset").onChange(function(val) {
+        volumeChangeOffSet=val;
+    });;
+    gui.add(params, "moveSpeed",0,30).name("Move Speed").onChange(function(val) {
+        fastSpeed=val;
+    });;
+    gui.add(musicPlaybutton,"add").name("Music Play Button");
+    gui.add(musicStopbutton,"add").name("Music Stop Button");
     gui.open();
+    
 }
 
 function UpdateSceneModelWireFrame(val){

@@ -1,5 +1,5 @@
 
-const fastSpeed=20.0;
+var fastSpeed=20.0;
 
  function animateDoor(object){    
         //object is THREE.Mesh
@@ -22,9 +22,9 @@ function animateAllDoor(){
 
 function animate(){
     controls.update();
+
     requestAnimationFrame(animate);
 
-    
     renderer.render(scene, camera);
 }
 
@@ -49,7 +49,7 @@ var currFrequency=-1.0;
 var lastFrequency=-1.0;
 var frequencyDifference=0;
 var clock = new THREE.Clock();
-var renderTime = 0.2;
+var renderTime = 0.1;
 var timer = 0;
 function animateAudioBarAverageFrequency(){
     requestAnimationFrame(animateAudioBarAverageFrequency);
@@ -59,24 +59,23 @@ function animateAudioBarAverageFrequency(){
         timer=0;
         lastFrequency=currFrequency;
         currFrequency = analyser.getAverageFrequency();
-
         mainAudioBar.scale.x = 300 * currFrequency / 256;
         frequencyDifference=currFrequency-lastFrequency;
 
-        if(frequencyDifference>1 && frequencyDifference<8){
+        if(frequencyDifference>1 && frequencyDifference<15){
             groupAddShape(tempLoadModel1,1);
-            ambientSound.setVolume(volumeMax*0.5);
+            ambientSound.setVolume(currentVolume*volumeChangeOffSet*0.8);
         }
-        if(frequencyDifference>9)
+        if(frequencyDifference>15)
         {
-            groupAddShape(tempLoadModel2,0.01);
-            ambientSound.setVolume(volumeMax*0.25);
+            groupAddShape(tempLoadModel2,0.02);
+            ambientSound.setVolume(currentVolume*volumeChangeOffSet);
         }
         if(frequencyDifference<-9)
         {
             groupAddShape(tempLoadModel3,1);
-            ambientSound.setVolume(volumeMax);
+            ambientSound.setVolume(currentVolume);
         }
-
+       // console.log(tempLoadModel3.geometry.attributes.position);
     }
 }

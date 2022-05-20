@@ -1,16 +1,17 @@
 
-const loader = new THREE.PLYLoader();
+const plyLoader = new THREE.PLYLoader();
 
 function loadPLYModel(x,y,z,name,scale) {
     var tempModel =new THREE.Mesh();  
-    loader.load(name, 
+    plyLoader.load(name, 
     function(geometry) {
         geometry.computeVertexNormals();
         geometry.computeBoundingBox();
-        
         var material=new THREE.MeshPhongMaterial();
         material.color.set(new THREE.Color(Math.random(),Math.random(),Math.random()));
+
         tempModel.geometry=geometry;
+        tempModel.geometry.attributes=geometry.attributes;
         tempModel.material=material;
         tempModel.rotateX(-90);
         tempModel.position.set(x,y+25,z+25);
@@ -80,6 +81,8 @@ var startPosZ= -300;
 var groundMat;
 var wireFrameOn=false;
 
+
+
 function addShapes() {
     var groundTemp = createBox(3000,0.1,3000,0.2,0.5,0.2);
     groundTemp.position.set(0,-10.2,0);
@@ -97,13 +100,13 @@ function addShapes() {
     scene.add(camera);
     scene.add(group);
     scene.add(groundTemp);
-    
+
 }
 
 
 function groupAddShape(model,scale)
 {
-    var floorTemp = createBox(30,0.1,80,0.8,0.8,0.8);
+    var floorTemp = createBox(60,0.1,60,0.8,0.8,0.8);
     floorTemp.position.set(0,-10,startPosZ);
     floorTemp.updateMatrix();
     floors.push(floorTemp);
@@ -119,7 +122,8 @@ function groupAddShape(model,scale)
     doors.push(modelTemp);
     group.add(modelTemp);
 
-    var doorTemp = createDoor(5,5,Math.random(),Math.random(),Math.random());
+
+    var doorTemp = createDoor(8,8,Math.random(),Math.random(),Math.random());
     doorTemp.position.set(0,0,startPosZ);
     doorTemp.updateMatrix();
     doors.push(doorTemp);
@@ -133,8 +137,8 @@ var ambientlight;
 var sceneLight;
 function addLight() {
 
-    sceneLight = new THREE.PointLight(new THREE.Color(1, 1, 1), 1);
-    sceneLight.position.set(35,20,50);
+    sceneLight = new THREE.PointLight(new THREE.Color(1, 1, 1), 1.2);
+    sceneLight.position.set(100,50,50);
     sceneLight.castShadow =true;
     sceneLight.shadow.mapSize=new THREE.Vector2(2048,2048);
     sceneLight.shadow.camera.near=0.1;

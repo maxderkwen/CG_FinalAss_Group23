@@ -14,6 +14,7 @@ audioLoader.load("sounds/EndlessCarnival.mp3",function(buffer){
     ambientSound.setBuffer(buffer); 
     ambientSound.setLoop(true);
     ambientSound.play();
+    ambientSound.stop();
 },function(xhr){// onProgress
     console.log("audio "+(xhr.loaded/xhr.total)*100+" % loaded");
 },function(error){// onError
