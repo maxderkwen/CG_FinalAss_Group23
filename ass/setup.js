@@ -1,7 +1,7 @@
 var scene = new THREE.Scene();
 var ratio = window.innerWidth / window.innerHeight;
 var fov=60;
-var camera = new THREE.PerspectiveCamera(fov, ratio, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(fov, ratio, 0.1, 2000);
 var renderer = new THREE.WebGLRenderer();
 var listener=new THREE.AudioListener();
 var ambientSound=new THREE.Audio(listener);

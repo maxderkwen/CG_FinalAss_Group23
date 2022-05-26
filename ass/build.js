@@ -45,7 +45,7 @@ function createBoxGeometry(width, height, depth,x,y,z){
 
 function createParticleFloor(){
    // point floor geometry
-   geometry = new THREE.PlaneBufferGeometry(1000, 1000, 1000,1000);
+   geometry = new THREE.PlaneBufferGeometry(1000, 1000, 100,100);
 
    // add an attribute
    var numVertices = geometry.attributes.position.count;
@@ -124,7 +124,7 @@ function createParticleStar(){
     var shaderMaterial = new THREE.ShaderMaterial({
         uniforms: uniforms,
         vertexShader: customStarVertexShader,
-        fragmentShader: customFragmentShader,
+        fragmentShader: customStarFragmentShader,
         transparent: true
     });
     console.log(shaderMaterial.uniforms.color);
@@ -164,9 +164,9 @@ function createDoor(width,height,r,g,b){
 var doors = new Array();
 var floors = new Array();
 const group = new THREE.Group();
-var tempLoadModel1=loadPLYModel(-40,0,0,'/models/chopper.ply',1);
-var tempLoadModel2=loadPLYModel(-60,0,0,'/models/airplane.ply',0.01);
-var tempLoadModel3=loadPLYModel(-80,0,0,'/models/ant.ply',1);
+var tempLoadModel1=loadPLYModel(-80,0,0,'/models/chopper.ply',1);
+var tempLoadModel2=loadPLYModel(-100,0,0,'/models/airplane.ply',0.01);
+var tempLoadModel3=loadPLYModel(-120,0,0,'/models/ant.ply',1);
 var doorsNum = 1;
 var startPosZ= -300;
 var groundMat;
@@ -183,7 +183,7 @@ function addShapes() {
 
     
     group.add(groundNoiseTemp);
-    groundNoiseTemp.position.set(0,-10,-20);
+    groundNoiseTemp.position.set(0,-2,-20);
     groundNoiseTemp.rotation.set(-89.54,0,0);
 
     group.add(starNoiseTemp);

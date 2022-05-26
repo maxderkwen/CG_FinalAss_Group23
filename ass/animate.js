@@ -24,8 +24,10 @@ function animate(){
     controls.update();
     
     requestAnimationFrame(animate);
-    groundNoiseTemp.rotateZ(0.001);
-    starNoiseTemp.rotateY(-0.001-frequencyDifference);
+    groundNoiseTemp.rotateZ(0.002);
+    starNoiseTemp.rotateY(-0.001-frequencyDifference*0.001);
+    starNoiseTemp.rotateX(-0.003-frequencyDifference*0.001);
+
     renderer.render(scene, camera);
 }
 
@@ -49,7 +51,7 @@ var currFrequency=-1.0;
 var lastFrequency=-1.0;
 var frequencyDifference=0;
 var clock = new THREE.Clock();
-var renderTime = 0.2;
+var renderTime = 0.3;
 var timer = 0;
 function animateAudioBarAverageFrequency(){
     requestAnimationFrame(animateAudioBarAverageFrequency);
@@ -79,7 +81,6 @@ function animateAudioBarAverageFrequency(){
 
         }
         starNoiseShaderControl(starNoiseTemp);
-
         grassNoiseShaderControl(groundNoiseTemp);
        // console.log(tempLoadModel3.geometry.attributes.position);
     }

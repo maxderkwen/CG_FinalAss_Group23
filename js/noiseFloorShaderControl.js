@@ -10,7 +10,7 @@ function grassNoiseShaderControl(model) {
     var offset =model.geometry.attributes.offset.array;
     var count = model.geometry.attributes.alpha.count;
     for (var i = 0; i < count; i++) {
-        alphas[i] *= 0.95;
+        alphas[i] *= 0.5;
         offset[i]*=0.5;
         if (alphas[i] < 0.01) {
             alphas[i] = 5.0;
@@ -40,7 +40,6 @@ function starNoiseShaderControl(model) {
         offset[i]*=0.5;
         if (alphas[i] < 0.01) {
             alphas[i] = 1.0;
-            model.material.uniforms.color.value=new THREE.Color(0xffffff*Math.random());
 
         }
         if (offset[i] < 0.1) {
@@ -48,6 +47,7 @@ function starNoiseShaderControl(model) {
         }
         //offset[0]=Math.random()*2.0;
     }
+    model.material.uniforms.color.value=new THREE.Color(0xffffff*Math.random());
     model.geometry.attributes.alpha.needsUpdate = true;
 
     //color.setHex(Math.random() * 0xffffff);

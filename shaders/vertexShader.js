@@ -2,7 +2,7 @@
     attribute float alpha; 
     attribute float offset; 
     varying float vAlpha; 
-
+    varying vec3 vPosition; 
     vec3 random3( vec3 p )  
     {
         p = vec3( dot(p,vec3(127.1,311.7, 74.7)),
@@ -29,8 +29,9 @@
     }
 
     void main() { 
-        vAlpha = alpha; 
         float noise= noise3d(normal*random3(position))*offset;
+        vAlpha = alpha*noise+0.2; 
+        vPosition=position;
         vec4 mvPosition = modelViewMatrix * vec4( position + vec3(0.0,0.0,noise*10.0), 0.5 ); 
         gl_PointSize = 2.0; 
         gl_Position = projectionMatrix * mvPosition ; 
@@ -43,7 +44,7 @@ const customStarVertexShader= /*glsl*/`
 attribute float alpha; 
 attribute float offset; 
 varying float vAlpha; 
-
+varying vec3 vPosition; 
 vec3 random3( vec3 p )  
 {
     p = vec3( dot(p,vec3(127.1,311.7, 74.7)),
@@ -72,9 +73,10 @@ float noise3d( in vec3 p )
 void main() { 
     
     float noise= noise3d(random3(position))*offset;
-    vAlpha = alpha*noise; 
+    vAlpha = alpha*noise+0.05; 
+    vPosition=position;
     vec4 mvPosition = modelViewMatrix * vec4( position+ vec3(noise,noise*30.0,noise*10.0), 1 ); 
-    gl_PointSize = 4.0; 
+    gl_PointSize = 3.0; 
     gl_Position = projectionMatrix * mvPosition; 
 }
 `;
