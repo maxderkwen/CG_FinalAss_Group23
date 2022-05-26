@@ -43,7 +43,98 @@ function createBoxGeometry(width, height, depth,x,y,z){
     return geometry;
 }
 
+function createParticleFloor(){
+   // point floor geometry
+   geometry = new THREE.PlaneBufferGeometry(1000, 1000, 1000,1000);
 
+   // add an attribute
+   var numVertices = geometry.attributes.position.count;
+
+   //set the floor geometry
+   var alphas = new Float32Array(numVertices * 1);
+   var offset = new Float32Array(numVertices * 1);
+
+   //populate the float array alphas
+   for (var i = 0; i < numVertices; i++) {
+       alphas[i] = Math.random();
+       offset[i]=1.0;
+   }
+   
+   geometry.setAttribute('alpha', new THREE.BufferAttribute(alphas, 1));
+   geometry.setAttribute('offset', new THREE.BufferAttribute(offset, 1));
+
+   console.log(geometry.attributes.offset);
+   var floor = new THREE.Mesh();
+   // set the floor color
+   var color = new THREE.Color(0xffffff);
+   color.setHex(Math.random() * 0xffffff);
+   uniforms = {
+       color: {
+           value: color
+       },
+   };
+   // set floor shader material
+   var shaderMaterial = new THREE.ShaderMaterial({
+       uniforms: uniforms,
+       vertexShader: customVertexShader,
+       fragmentShader: customFragmentShader,
+       transparent: true
+   });
+   console.log(shaderMaterial.uniforms.color);
+
+   
+   // create the floor from points
+   floor.geometry=geometry;
+   floor.material=shaderMaterial;
+   return floor;
+}
+
+
+function createParticleStar(){
+    // point star geometry
+    geometry = new THREE.SphereBufferGeometry(600,200,100);
+ 
+    // add an attribute
+    var numVertices = geometry.attributes.position.count;
+ 
+    //set the star geometry
+    var alphas = new Float32Array(numVertices * 1);
+    var offset = new Float32Array(numVertices * 1);
+ 
+    //populate the float array alphas
+    for (var i = 0; i < numVertices; i++) {
+        alphas[i] = Math.random();
+        offset[i]=1.0;
+    }
+    
+    geometry.setAttribute('alpha', new THREE.BufferAttribute(alphas, 1));
+    geometry.setAttribute('offset', new THREE.BufferAttribute(offset, 1));
+ 
+    console.log(geometry.attributes.offset);
+    var star = new THREE.Points();
+    // set the star color
+    var color = new THREE.Color(0xffffff);
+    color.setHex(color.getHex());
+    uniforms = {
+        color: {
+            value: color
+        },
+    };
+    // set star shader material
+    var shaderMaterial = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        vertexShader: customStarVertexShader,
+        fragmentShader: customFragmentShader,
+        transparent: true
+    });
+    console.log(shaderMaterial.uniforms.color);
+ 
+    
+    // create the star from points
+    star.geometry=geometry;
+    star.material=shaderMaterial;
+    return star;
+ }
 
 var door=createDoor(0.8,1,1,1,0.5);
 
@@ -82,18 +173,28 @@ var groundMat;
 var wireFrameOn=false;
 
 
-
+var groundNoiseTemp=createParticleFloor();
+var starNoiseTemp=createParticleStar();
 function addShapes() {
     var groundTemp = createBox(3000,0.1,3000,0.2,0.5,0.2);
     groundTemp.position.set(0,-10.2,0);
     groundTemp.receiveShadow=true;
     groundMat=groundTemp.material;
 
+    
+    group.add(groundNoiseTemp);
+    groundNoiseTemp.position.set(0,-10,-20);
+    groundNoiseTemp.rotation.set(-89.54,0,0);
+
+    group.add(starNoiseTemp);
+
+
     addLight();
 
     scene.add(tempLoadModel1);
     scene.add(tempLoadModel2);
     scene.add(tempLoadModel3);
+    
 
     scene.add(ambientlight);
     scene.add(sceneLight);

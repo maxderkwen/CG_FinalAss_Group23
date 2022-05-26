@@ -22,9 +22,10 @@ function animateAllDoor(){
 
 function animate(){
     controls.update();
-
+    
     requestAnimationFrame(animate);
-
+    groundNoiseTemp.rotateZ(0.001);
+    starNoiseTemp.rotateY(-0.001-frequencyDifference);
     renderer.render(scene, camera);
 }
 
@@ -38,7 +39,6 @@ function animateAudioBarAllFrequency(){
         // 遍历组对象，每个网格子对象设置一个对应的频率数据
         audioGroup.children.forEach((elem, index) => {
           elem.scale.y =  arr[index] / 10;
-          
           elem.material.color.r = arr[index] / 200;
         });
         
@@ -49,7 +49,7 @@ var currFrequency=-1.0;
 var lastFrequency=-1.0;
 var frequencyDifference=0;
 var clock = new THREE.Clock();
-var renderTime = 0.1;
+var renderTime = 0.2;
 var timer = 0;
 function animateAudioBarAverageFrequency(){
     requestAnimationFrame(animateAudioBarAverageFrequency);
@@ -65,6 +65,7 @@ function animateAudioBarAverageFrequency(){
         if(frequencyDifference>1 && frequencyDifference<15){
             groupAddShape(tempLoadModel1,1);
             ambientSound.setVolume(currentVolume*volumeChangeOffSet*0.8);
+
         }
         if(frequencyDifference>15)
         {
@@ -75,7 +76,11 @@ function animateAudioBarAverageFrequency(){
         {
             groupAddShape(tempLoadModel3,1);
             ambientSound.setVolume(currentVolume);
+
         }
+        starNoiseShaderControl(starNoiseTemp);
+
+        grassNoiseShaderControl(groundNoiseTemp);
        // console.log(tempLoadModel3.geometry.attributes.position);
     }
 }

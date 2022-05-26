@@ -11,6 +11,7 @@ function buildGui() {
     
     var params = {
         color: groundMat.color.getHex(),
+        colorGrass: tempGrassColor.getHex(),
         switch: wireFrameOn,
         volume:ambientSound.getVolume(),
         volumeOffset:volumeChangeOffSet,
@@ -19,7 +20,9 @@ function buildGui() {
     gui.addColor(params, 'color').name("Ground Color").onChange(function(val) {
         groundMat.color.setHex(val);
     });
-
+    gui.addColor(params, 'colorGrass').name("Grass Color").onChange(function(val) {
+        tempGrassColor.setHex(val);
+    });
     // on/off button
     gui.add(params, "switch").name("Wireframe On").onChange(function(val) {
         UpdateSceneModelWireFrame(val);
