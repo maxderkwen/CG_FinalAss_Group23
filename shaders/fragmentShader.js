@@ -28,7 +28,12 @@ float noise3d( in vec3 p )
 }
 void main() { 
     vec3 temp=random3(vPosition);
-    gl_FragColor = vec4(color+temp, vAlpha+0.01 ); 
+    clamp(temp.x,0.0,1.0);
+    clamp(temp.y,0.0,1.0);
+    clamp(temp.z,0.0,1.0);
+    vec3 tempColor=color+temp*temp;
+
+    gl_FragColor = vec4(tempColor, vAlpha*0.9); 
 }`;
 
 const customStarFragmentShader= /*glsl*/`
@@ -61,5 +66,5 @@ float noise3d( in vec3 p )
 }
 void main() { 
     vec3 temp=random3(vPosition*color);
-    gl_FragColor = vec4(temp, vAlpha+0.01 ); 
+    gl_FragColor = vec4(temp, vAlpha*1.1 ); 
 }`;

@@ -33,6 +33,7 @@ function setScene() {
     document.body.appendChild(renderer.domElement);
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     CreateAudioBar();
+    initModelMap();
     
 }
 

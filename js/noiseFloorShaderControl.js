@@ -10,13 +10,13 @@ function grassNoiseShaderControl(model) {
     var offset =model.geometry.attributes.offset.array;
     var count = model.geometry.attributes.alpha.count;
     for (var i = 0; i < count; i++) {
-        alphas[i] *= 0.5;
-        offset[i]*=0.5;
+        alphas[i] *= 0.9;
+        offset[i]*=0.2;
         if (alphas[i] < 0.01) {
             alphas[i] = 5.0;
         }
         if (offset[i] < 0.1) {
-            offset[i]=frequencyDifference;
+            offset[i]+=frequencyDifference*1000.0;
         }
         //offset[0]=Math.random()*2.0;
     }

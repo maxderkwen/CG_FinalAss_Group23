@@ -29,10 +29,10 @@
     }
 
     void main() { 
-        float noise= noise3d(normal*random3(position))*offset;
-        vAlpha = alpha*noise+0.2; 
+        float noise= noise3d(normal*random3(position)*offset);
+        vAlpha = alpha*noise+0.3; 
         vPosition=position;
-        vec4 mvPosition = modelViewMatrix * vec4( position + vec3(0.0,0.0,noise*10.0), 0.5 ); 
+        vec4 mvPosition = modelViewMatrix * vec4( position + vec3(0.0,0.0,noise*20.0), 0.5 ); 
         gl_PointSize = 2.0; 
         gl_Position = projectionMatrix * mvPosition ; 
     }
@@ -76,7 +76,7 @@ void main() {
     vAlpha = alpha*noise+0.05; 
     vPosition=position;
     vec4 mvPosition = modelViewMatrix * vec4( position+ vec3(noise,noise*30.0,noise*10.0), 1 ); 
-    gl_PointSize = 3.0; 
+    gl_PointSize = 4.0; 
     gl_Position = projectionMatrix * mvPosition; 
 }
 `;

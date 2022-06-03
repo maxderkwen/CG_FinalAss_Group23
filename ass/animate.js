@@ -22,9 +22,12 @@ function animateAllDoor(){
 
 function animate(){
     controls.update();
-    
+    ChangeShapAnimation(Star2,0.5);
+    changeModel(ShapeChangeModel,0);
+
     requestAnimationFrame(animate);
     groundNoiseTemp.rotateZ(0.002);
+    grassNoiseShaderControl(groundNoiseTemp);
     starNoiseTemp.rotateY(-0.001-frequencyDifference*0.001);
     starNoiseTemp.rotateX(-0.003-frequencyDifference*0.001);
 
@@ -51,7 +54,7 @@ var currFrequency=-1.0;
 var lastFrequency=-1.0;
 var frequencyDifference=0;
 var clock = new THREE.Clock();
-var renderTime = 0.3;
+var renderTime = 0.1;
 var timer = 0;
 function animateAudioBarAverageFrequency(){
     requestAnimationFrame(animateAudioBarAverageFrequency);
@@ -80,8 +83,8 @@ function animateAudioBarAverageFrequency(){
             ambientSound.setVolume(currentVolume);
 
         }
+
         starNoiseShaderControl(starNoiseTemp);
-        grassNoiseShaderControl(groundNoiseTemp);
        // console.log(tempLoadModel3.geometry.attributes.position);
     }
 }

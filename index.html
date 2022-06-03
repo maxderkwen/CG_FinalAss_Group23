@@ -13,6 +13,7 @@
         <script src="js/PLYLoader.js"></script>
         <script src="js/dat.gui.min.js"></script>
         <script src="js/OrbitControls.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
 
         <link rel="stylesheet" href="css/layout.css">
         <title>CG Labs</title>
@@ -30,9 +31,8 @@
         <script type='x-shader/x-fragment' id='fragmentShader'>
             uniform vec3 color; varying float vAlpha; void main() { gl_FragColor = vec4( color, vAlpha ); }
         </script>
-
         <script src="ass/setup.js"></script>
-
+        <script src="ass/map.js"></script>
         <script src="ass/build.js"></script>
         
         <script src="ass/animate.js"></script>

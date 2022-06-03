@@ -172,7 +172,8 @@ var startPosZ= -300;
 var groundMat;
 var wireFrameOn=false;
 
-
+var Star2=initMainParticles();
+var ShapeChangeModel=initAroundParticles();
 var groundNoiseTemp=createParticleFloor();
 var starNoiseTemp=createParticleStar();
 function addShapes() {
@@ -188,12 +189,18 @@ function addShapes() {
 
     group.add(starNoiseTemp);
 
-
-    addLight();
-
     scene.add(tempLoadModel1);
     scene.add(tempLoadModel2);
     scene.add(tempLoadModel3);
+
+    
+    ShapeChangeModel.position.set(0,0,0);
+    Star2.position.set(0,0,0);
+    scene.add(ShapeChangeModel);
+    scene.add(Star2);
+    addLight();
+
+
     
 
     scene.add(ambientlight);
