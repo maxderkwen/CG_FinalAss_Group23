@@ -22,11 +22,12 @@ function animateAllDoor(){
 
 function animate(){
     controls.update();
-    ChangeShapAnimation(Star2,0.5);
+    changeModel(Star2,0.5);
     changeModel(ShapeChangeModel,0);
 
     requestAnimationFrame(animate);
     groundNoiseTemp.rotateZ(0.002);
+
     grassNoiseShaderControl(groundNoiseTemp);
     starNoiseTemp.rotateY(-0.001-frequencyDifference*0.001);
     starNoiseTemp.rotateX(-0.003-frequencyDifference*0.001);

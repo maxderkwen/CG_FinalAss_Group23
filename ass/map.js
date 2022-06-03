@@ -39,7 +39,7 @@ const rangeRandom = (max, min) => Math.floor(Math.random() * (max - min + 1) + m
       opacity: 1,
     });
 
-    particles = new THREE.Points(geometry, material);
+    const particles = new THREE.Points(geometry, material);
     geometry.name = "变换点组"
     return particles;
   }
@@ -115,8 +115,6 @@ const rangeRandom = (max, min) => Math.floor(Math.random() * (max - min + 1) + m
     var points=[];
     points= model.geometry.attributes.position.array;
     
-
-
     for (var i = 0; i < points.count; i++){     
       var poitns2= glist[index].geometry.attributes.position.array;
       var length = poitns2.count;
